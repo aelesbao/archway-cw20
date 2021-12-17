@@ -79,6 +79,5 @@ jobs:
       - name: Display changed schemas
         if: steps.verify-schema.outputs.files_changed == 'true'
         run: |
-          echo "The schema files are not in sync with the repository. Please, run `cargo schema` to generate them again and commit the changes:"
-          echo "${{ steps.verify-schema.outputs.changed_files }}"
+          echo "The schema files are not in sync with the repository. Please, run 'cargo schema' to generate them again and commit the changes."
           exit 1
