@@ -64,11 +64,21 @@ jobs:
           command: clippy
           args: -- -D warnings
 
-      # TODO: we should check
-      # CHANGES_IN_REPO=$(git status --porcelain)
-      # after this, but I don't know how
-      - name: Generate Schema
+      - name: Generate schema
         uses: actions-rs/cargo@v1
         with:
           command: schema
           args: --locked
+
+      - name: Verify schema
+        uses: tj-actions/verify-changed-files@v8.8
+        id: verify-schema
+        with:
+          files: schema/*.json
+
+      - name: Display changed schemas
+        if: steps.verify-schema.outputs.files_changed == 'true'
+        run: |
+          echo "The schema files are not in sync with the repository. Please, run `cargo schema` to generate them again and commit the changes:"
+          echo "${{ steps.verify-schema.outputs.changed_files }}"
+          exit 1
