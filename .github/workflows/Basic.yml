@@ -16,10 +16,10 @@ jobs:
       - name: Install stable toolchain
         uses: actions-rs/toolchain@v1
         with:
-          profile: minimal
-          toolchain: 1.51.0
+          toolchain: stable
           target: wasm32-unknown-unknown
           override: true
+          profile: minimal
 
       - name: Run unit tests
         uses: actions-rs/cargo@v1
@@ -47,9 +47,9 @@ jobs:
       - name: Install stable toolchain
         uses: actions-rs/toolchain@v1
         with:
-          profile: minimal
-          toolchain: 1.51.0
+          toolchain: stable
           override: true
+          profile: minimal
           components: rustfmt, clippy
 
       - name: Run cargo fmt
